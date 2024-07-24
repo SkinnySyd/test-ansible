@@ -1,12 +1,6 @@
 pipeline {
     agent any
     
-    environment {
-        DOCKER_USER = credentials('dockerhub')
-        DOCKER_PAT = credentials('dockertoken')
-    }
-
- 
     stages {
         stage('Clone Repository') {
             steps {
