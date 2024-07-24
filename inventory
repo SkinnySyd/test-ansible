@@ -1,0 +1,2 @@
+[minikube]
+192.168.142.128 ansible_user=sisyphus ansible_ssh_private_key_file=/home/skinnylx/ssh-control-ansible ansible_password=123

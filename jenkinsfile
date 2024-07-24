@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+    
+    environment {
+        DOCKER_USER = credentials('dockerhub')
+        DOCKER_PAT = credentials('dockertoken')
+    }
+
+ 
+    stages {
+        stage('Clone Repository') {
+            steps {
+                script {
+                    checkout scm
+                }
+            }
+        }
+        stage('output') {
+            steps {
+                script {
+                    echo "Cloning repository into workspace: ${WORKSPACE}" // to locate workspace
+                }
+            }
+        }
+        
+
+        stage('run ansible playbook') {
+            steps {
+                script {
+                    sh 'ansible -m ping node -i inventory '
+                    sh 'ansible-playbook -i inventory ansible.yml'
+                }
+            }
+        }
+    }
+}

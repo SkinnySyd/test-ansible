@@ -1,0 +1,17 @@
+---
+- hosts: minikube
+  become: false
+  tasks:
+    - name: Start Minikube
+     # become_user: sisyphus
+      command: minikube start
+    - name: Ensure kubectl is using Minikube context
+     # become_user: sisyphus
+      command: minikube kubectl -- config use-context minikube
+    - name: Copy deployment file to Minikube
+      copy:
+        src: ./deployment.yml
+        dest: /tmp/deployment.yml
+    - name: Apply Kubernetes deployment
+     # become_user: sisyphus
+      command: kubectl apply -f /tmp/deployment.yml
